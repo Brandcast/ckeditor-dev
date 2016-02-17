@@ -1,72 +1,45 @@
-/**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+﻿/**
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
+	
 	// %REMOVE_START%
-	config.plugins =
-		'about,' +
-		'a11yhelp,' +
-		'basicstyles,' +
-		'bidi,' +
-		'blockquote,' +
-		'clipboard,' +
-		'colorbutton,' +
-		'colordialog,' +
-		'contextmenu,' +
-		'dialogadvtab,' +
-		'div,' +
-		'elementspath,' +
-		'enterkey,' +
-		'entities,' +
-		'filebrowser,' +
-		'find,' +
-		'flash,' +
-		'floatingspace,' +
-		'font,' +
-		'format,' +
-		'forms,' +
-		'horizontalrule,' +
-		'htmlwriter,' +
-		'image,' +
-		'iframe,' +
-		'indentlist,' +
-		'indentblock,' +
-		'justify,' +
-		'language,' +
-		'link,' +
-		'list,' +
-		'liststyle,' +
-		'magicline,' +
-		'maximize,' +
-		'newpage,' +
-		'pagebreak,' +
-		'pastefromword,' +
-		'pastetext,' +
-		'preview,' +
-		'print,' +
-		'removeformat,' +
-		'resize,' +
-		'save,' +
-		'selectall,' +
-		'showblocks,' +
-		'showborders,' +
-		'smiley,' +
-		'sourcearea,' +
-		'specialchar,' +
-		'stylescombo,' +
-		'tab,' +
-		'table,' +
-		'tabletools,' +
-		'templates,' +
-		'toolbar,' +
-		'undo,' +
-		'wysiwygarea';
+	// The configuration options below are needed when running CKEditor from source files.
+	config.plugins = 'basicstyles,blockquote,dialogui,dialog,clipboard,enterkey,entities,floatingspace,htmlwriter,indent,indentlist,fakeobjects,link,list,magicline,pastetext,pastefromword,tab,undo';
+	config.skin = 'moono-dark';
 	// %REMOVE_END%
-};
 
-// %LEAVE_UNMINIFIED% %REMOVE_LINE%
+	// Define changes to default configuration here.
+	// For complete reference see:
+	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+
+	// The toolbar groups arrangement, optimized for two toolbar rows.
+	config.toolbarGroups = [
+		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'links' },
+		{ name: 'insert' },
+		{ name: 'forms' },
+		{ name: 'tools' },
+		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'others' },
+		'/',
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+		{ name: 'styles' },
+		{ name: 'colors' },
+		{ name: 'about' }
+	];
+
+	// Remove some buttons provided by the standard plugins, which are
+	// not needed in the Standard(s) toolbar.
+	config.removeButtons = 'Underline,Subscript,Superscript';
+
+	// Set the most common block elements.
+	config.format_tags = 'p;h1;h2;h3;pre';
+
+	// Simplify the dialog windows.
+	config.removeDialogTabs = 'image:advanced;link:advanced';
+};

@@ -1,5 +1,5 @@
-/**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+﻿/**
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -18,7 +18,7 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'fr', {
 			{
 			name: 'Dialogue de l\'éditeur',
 			legend:
-				'Dans un dialogue, appuyer sur TAB pour aller à l\'élément suivant du dialogue, appuyer sur MAJ+TAB pour aller à l\'élément précédent du dialogue, appuyer sur ECHAP pour annuler le dialogue. Quand un dialogue a de multiples onglets, on peut accéder à la liste des onglets avec ALT+F10 ou avec TAB. Dans la liste des onglets, se déplacer vers le suivant ou le précédent avec les FLECHES DROITE et GAUCHE respectivement.' 
+				'Dans un dialogue, appuyer sur TAB pour aller à l\'élément suivant du dialogue, appuyer sur MAJ+TAB pour aller à l\'élément précédent du dialogue, appuyer sur ECHAP pour annuler le dialogue. Quand un dialogue a de multiples onglets, on peut accéder à la liste des onglets avec ALT+F10 ou avec TAB. Dans la liste des onglets, se déplacer vers le suivant ou le précédent avec les FLECHES DROITE et GAUCHE respectivement.'
 		},
 
 			{

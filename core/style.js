@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -401,7 +401,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 				name = element.getName();
 
 			// If the element name is the same as the style name.
-			if ( typeof this.element == 'string' ? name == this.element : name in this.element ) {
+			if ( typeof this.element == 'string' ? name == this.element : this.element.indexOf(name) !== -1 ) {
 				// If no attributes are defined in the element.
 				if ( !fullMatch && !element.hasAttributes() )
 					return true;

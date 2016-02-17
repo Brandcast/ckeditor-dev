@@ -1,5 +1,5 @@
-/**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+﻿/**
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -157,14 +157,9 @@
 					// Should we make a <thead>?
 					var headers = info.selHeaders;
 					if ( !table.$.tHead && ( headers == 'row' || headers == 'both' ) ) {
-						var thead = table.findOne( 'thead' );
+						var thead = new CKEDITOR.dom.element( table.$.createTHead() );
 						tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
 						var theRow = tbody.getElementsByTag( 'tr' ).getItem( 0 );
-
-						if ( !thead ) {
-							thead = new CKEDITOR.dom.element( 'thead' );
-							thead.insertBefore( tbody );
-						}
 
 						// Change TD to TH:
 						for ( i = 0; i < theRow.getChildCount(); i++ ) {
@@ -503,7 +498,10 @@
 									captionElement.setHtml( '' );
 								} else {
 									captionElement = new CKEDITOR.dom.element( 'caption', editor.document );
-									table.append( captionElement, true );
+									if ( table.getChildCount() )
+										captionElement.insertBefore( table.getFirst() );
+									else
+										captionElement.appendTo( table );
 								}
 								captionElement.append( new CKEDITOR.dom.text( caption, editor.document ) );
 							} else if ( captionElement.count() > 0 ) {

@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -654,47 +654,6 @@
 		return editor.blockless ? CKEDITOR.ENTER_BR : enterMode;
 	}
 
-	// Create DocumentFragment from specified ranges. For now it handles only tables in Firefox
-	// and returns DocumentFragment from the 1. range for other cases. (#13884)
-	function createDocumentFragmentFromRanges( ranges, editable ) {
-		var docFragment = new CKEDITOR.dom.documentFragment(),
-			tableClone,
-			currentRow,
-			currentRowClone;
-
-		for ( var i = 0; i < ranges.length; i++ ) {
-			var range = ranges[ i ],
-				container = range.startContainer;
-
-			if ( container.getName && container.getName() == 'tr' ) {
-				if ( !tableClone ) {
-					tableClone = container.getAscendant( 'table' ).clone();
-					tableClone.append( container.getAscendant( 'tbody' ).clone() );
-					docFragment.append( tableClone );
-					tableClone = tableClone.findOne( 'tbody' );
-				}
-
-				if ( !( currentRow && currentRow.equals( container ) ) ) {
-					currentRow = container;
-					currentRowClone = container.clone();
-					tableClone.append( currentRowClone );
-				}
-
-				currentRowClone.append( range.cloneContents() );
-			} else {
-				// If there was something else copied with table,
-				// append it to DocumentFragment.
-				docFragment.append( range.cloneContents() );
-			}
-		}
-
-		if ( !tableClone ) {
-			return editable.getHtmlFromRange( ranges[ 0 ] );
-		}
-
-		return docFragment;
-	}
-
 	CKEDITOR.tools.extend( CKEDITOR.editor.prototype, {
 		/**
 		 * Adds a command definition to the editor instance. Commands added with
@@ -1174,7 +1133,7 @@
 				return null;
 			}
 
-			var docFragment = createDocumentFragmentFromRanges( ranges, editable );
+			var docFragment = editable.getHtmlFromRange( ranges[ 0 ] );
 
 			return toString ? docFragment.getHtml() : docFragment;
 		},

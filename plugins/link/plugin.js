@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -9,7 +9,7 @@
 	CKEDITOR.plugins.add( 'link', {
 		requires: 'dialog,fakeobjects',
 		// jscs:disable maximumLineLength
-		lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,de-ch,el,en,en-au,en-ca,en-gb,eo,es,et,eu,fa,fi,fo,fr,fr-ca,gl,gu,he,hi,hr,hu,id,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt,pt-br,ro,ru,si,sk,sl,sq,sr,sr-latn,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+		lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,el,en,en-au,en-ca,en-gb,eo,es,et,eu,fa,fi,fo,fr,fr-ca,gl,gu,he,hi,hr,hu,id,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt,pt-br,ro,ru,si,sk,sl,sq,sr,sr-latn,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
 		// jscs:enable maximumLineLength
 		icons: 'anchor,anchor-rtl,link,unlink', // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
@@ -91,27 +91,27 @@
 			CKEDITOR.dialog.add( 'link', this.path + 'dialogs/link.js' );
 			CKEDITOR.dialog.add( 'anchor', this.path + 'dialogs/anchor.js' );
 
-			editor.on( 'doubleclick', function( evt ) {
-				var element = CKEDITOR.plugins.link.getSelectedLink( editor ) || evt.data.element;
+			// editor.on( 'doubleclick', function( evt ) {
+			// 	var element = CKEDITOR.plugins.link.getSelectedLink( editor ) || evt.data.element;
 
-				if ( !element.isReadOnly() ) {
-					if ( element.is( 'a' ) ) {
-						evt.data.dialog = ( element.getAttribute( 'name' ) && ( !element.getAttribute( 'href' ) || !element.getChildCount() ) ) ? 'anchor' : 'link';
+			// 	if ( !element.isReadOnly() ) {
+			// 		if ( element.is( 'a' ) ) {
+			// 			evt.data.dialog = ( element.getAttribute( 'name' ) && ( !element.getAttribute( 'href' ) || !element.getChildCount() ) ) ? 'anchor' : 'link';
 
-						// Pass the link to be selected along with event data.
-						evt.data.link = element;
-					} else if ( CKEDITOR.plugins.link.tryRestoreFakeAnchor( editor, element ) ) {
-						evt.data.dialog = 'anchor';
-					}
-				}
-			}, null, null, 0 );
+			// 			// Pass the link to be selected along with event data.
+			// 			evt.data.link = element;
+			// 		} else if ( CKEDITOR.plugins.link.tryRestoreFakeAnchor( editor, element ) ) {
+			// 			evt.data.dialog = 'anchor';
+			// 		}
+			// 	}
+			// }, null, null, 0 );
 
-			// If event was cancelled, link passed in event data will not be selected.
-			editor.on( 'doubleclick', function( evt ) {
-				// Make sure both links and anchors are selected (#11822).
-				if ( evt.data.dialog in { link: 1, anchor: 1 } && evt.data.link )
-					editor.getSelection().selectElement( evt.data.link );
-			}, null, null, 20 );
+			// // If event was cancelled, link passed in event data will not be selected.
+			// editor.on( 'doubleclick', function( evt ) {
+			// 	// Make sure both links and anchors are selected (#11822).
+			// 	if ( evt.data.dialog in { link: 1, anchor: 1 } && evt.data.link )
+			// 		editor.getSelection().selectElement( evt.data.link );
+			// }, null, null, 20 );
 
 			// If the "menu" plugin is loaded, register the menu items.
 			if ( editor.addMenuItems ) {
