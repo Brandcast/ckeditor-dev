@@ -28,8 +28,9 @@ else {
 	} else {
 		document.write( '<script type="text/javascript" src="' + CKEDITOR.getUrl( 'core/loader.js' ) + '"></script>' );
 	}
-
 }
+
+define('CKEDITOR', [], function () { return CKEDITOR; });
 
 /**
  * The skin to load for all created instances, it may be the name of the skin
