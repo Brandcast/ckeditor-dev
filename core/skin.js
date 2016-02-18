@@ -47,13 +47,14 @@
 		 * @param {Function} fn The provided callback function which is invoked after the part is loaded.
 		 */
 		loadPart: function( part, fn ) {
-			if ( CKEDITOR.skin.name != getName() ) {
-				CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( getConfigPath() + 'skin.js' ), function() {
-					loadCss( part, fn );
-				} );
-			} else {
-				loadCss( part, fn );
-			}
+			fn();
+			// if ( CKEDITOR.skin.name != getName() ) {
+			// 	CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( getConfigPath() + 'skin.js' ), function() {
+			// 		loadCss( part, fn );
+			// 	} );
+			// } else {
+			// 	loadCss( part, fn );
+			// }
 		},
 
 		/**

@@ -2007,11 +2007,12 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype, {
 				externalPath = partsStylesSet[ 1 ];
 
 			CKEDITOR.stylesSet.addExternal( styleSetName, externalPath ? partsStylesSet.slice( 1 ).join( ':' ) : CKEDITOR.getUrl( 'styles.js' ), '' );
+			callback([]);
 
-			CKEDITOR.stylesSet.load( styleSetName, function( stylesSet ) {
-				editor._.stylesDefinitions = stylesSet[ styleSetName ];
-				callback( editor._.stylesDefinitions );
-			} );
+			// CKEDITOR.stylesSet.load( styleSetName, function( stylesSet ) {
+			// 	editor._.stylesDefinitions = stylesSet[ styleSetName ];
+			// 	callback( editor._.stylesDefinitions );
+			// } );
 		} else {
 			callback( this._.stylesDefinitions );
 		}
