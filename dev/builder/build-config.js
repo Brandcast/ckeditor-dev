@@ -50,6 +50,7 @@ var CKBUILDER_CONFIG = {
     	pastefromword: 1,
     	tab: 1,
     	undo: 1,
-    	removeformat: 1
+    	removeformat: 1,
+        confighelper: 1
     }
 };

@@ -287,9 +287,14 @@
 					data = filterContent( editor, data, editor.pasteFilter );
 				}
 
+				if(transferType === CKEDITOR.DATA_TRANSFER_EXTERNAL && editor.config.pasteStyles) {
+					data = styleContent( editor, data, editor.config.pasteStyles );
+				}
+
 				if ( dataObj.startsWithEOL ) {
 					data = '<br data-cke-eol="1">' + data;
 				}
+
 				if ( dataObj.endsWithEOL ) {
 					data += '<br data-cke-eol="1">';
 				}
@@ -1242,6 +1247,37 @@
 				return null;
 			}
 		};
+	}
+
+	var parseHTML = function(str) {
+	  var tmp = document.implementation.createHTMLDocument();
+	  tmp.body.innerHTML = str;
+	  return tmp;
+	};
+
+	function styleNode(node, style) {
+		if(style.styles) {
+			for(var key in style.styles) {
+				var value = style.styles[key];
+				node.style[key] = value;
+			}
+		}
+		if(style.attributes && style.attributes.class) {
+			node.classList.add(style.attributes.class);
+		}
+	}
+
+	function styleContent( editor, data, styles ) {
+		var document = parseHTML(data);
+		var nodes = document.body.children;
+		for(var i = 0; i < nodes.length; i++) {
+			var node = nodes[i];
+			var tagName = node.tagName.toLowerCase();
+			if(styles[tagName]) {
+				styleNode(node, styles[tagName]);
+			}
+		}
+		return document.body.innerHTML;
 	}
 
 	function filterContent( editor, data, filter ) {
