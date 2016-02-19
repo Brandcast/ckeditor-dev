@@ -20,7 +20,7 @@ function dataIsEmpty( data )
 		return false;
 
 	var value = data.replace( /[\n|\t]*/g, '' ).toLowerCase();
-	if ( !value || value == '<br>' || value == '<p>&nbsp;<br></p>' || value == '<p><br></p>' || value == '<p>&nbsp;</p>' || value == '&nbsp;' || value == ' ' || value == '&nbsp;<br>' || value == ' <br>' )
+	if ( !value || value == '<br>' || value == '<p>&nbsp;<br></p>' || value == '<p><br></p>' || value == '<p>&nbsp;</p>' || value == '&nbsp;' || value == ' ' || value == '&nbsp;<br>' || value == ' <br>' || value == '<p class="fs-14"><br></p>' || value == '<p class="fs-14">&nbsp;<br></p>')
 		return true;
 
 	return false;
@@ -45,6 +45,7 @@ function addPlaceholder(ev) {
 		if ( dataIsEmpty( root.getHtml() ) )
 		{
 			root.addClass( 'show-placeholder' );
+			root.setHtml( '<p class="fs-14"><br/></p>' );
 		}
 	}
 
@@ -81,7 +82,7 @@ function removePlaceholder(ev) {
 		// fill it properly
 		if (CKEDITOR.dtd[ root.getName() ]['p'])
 		{
-			root.setHtml( '<p><br/></p>' );
+			root.setHtml( '<p class="fs-14"><br/></p>' );
 			// Set caret in position
 			var range = new CKEDITOR.dom.range(editor.document);
 			range.moveToElementEditablePosition(root.getFirst(), true);
