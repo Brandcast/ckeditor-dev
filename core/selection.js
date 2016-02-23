@@ -221,7 +221,11 @@
 		range.collapse( true );
 		sel.removeAllRanges();
 		sel.addRange( range );
-		sel.extend( bm[ 1 ].node, bm[ 1 ].offset );
+		try {
+			sel.extend( bm[ 1 ].node, bm[ 1 ].offset );
+		} catch(e) {
+			console.warn('error moveNativeSelectionToBookmark: ', e);
+		}
 	}
 
 	// Creates cke_hidden_sel container and puts real selection there.
