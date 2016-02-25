@@ -1648,8 +1648,13 @@
 					this.fake( selectedElement );
 				else if ( selectedElement )
 					this.selectElement( selectedElement );
-				else
-					this.selectRanges( ranges );
+				else {
+					try {
+						this.selectRanges( ranges );
+					} catch(e) {
+						console.warn('error at unlock: ', e);
+					}
+				}
 			}
 		},
 
