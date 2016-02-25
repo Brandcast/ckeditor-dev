@@ -221,7 +221,11 @@
 		range.collapse( true );
 		sel.removeAllRanges();
 		sel.addRange( range );
-		sel.extend( bm[ 1 ].node, bm[ 1 ].offset );
+		try {
+			sel.extend( bm[ 1 ].node, bm[ 1 ].offset );
+		} catch(e) {
+			console.warn('error moveNativeSelectionToBookmark: ', e);
+		}
 	}
 
 	// Creates cke_hidden_sel container and puts real selection there.
@@ -1644,8 +1648,13 @@
 					this.fake( selectedElement );
 				else if ( selectedElement )
 					this.selectElement( selectedElement );
-				else
-					this.selectRanges( ranges );
+				else {
+					try {
+						this.selectRanges( ranges );
+					} catch(e) {
+						console.warn('error at unlock: ', e);
+					}
+				}
 			}
 		},
 
