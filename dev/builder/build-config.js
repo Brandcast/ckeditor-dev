@@ -40,6 +40,7 @@ var CKBUILDER_CONFIG = {
     	enterkey: 1,
     	entities: 1,
     	floatingspace: 1,
+        justify: 1,
     	htmlwriter: 1,
     	indent: 1,
     	indentlist: 1,
