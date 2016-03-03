@@ -17,10 +17,12 @@ function dataIsEmpty( data )
 		return true;
 
 	var value = data.replace( /[\n|\t]*/g, '' ).toLowerCase();
-	if ( !value || value == '<br>' || value == '<p>&nbsp;<br></p>' || value == '<p><br></p>' || value == '<p>&nbsp;</p>' || value == '&nbsp;' || value == ' ' || value == '&nbsp;<br>' || value == ' <br>' || value == '<p class="fs-14"><br></p>' || value == '<p class="fs-14">&nbsp;<br></p>')
-		return true;
-
-	return false;
+	var isPlainText = !/<[a-z][\s\S]*>/i.test(value);
+	if(isPlainText) {
+		return !value;
+	} else {
+		return !$(value).get(0).textContent;
+	}
 }
 
 function addPlaceholder(ev) {
