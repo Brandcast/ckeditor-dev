@@ -44,7 +44,7 @@ function addPlaceholder(ev) {
 		if ( dataIsEmpty( root.getHtml() ) )
 		{
 			root.addClass( 'show-placeholder' );
-			root.setHtml( '<p class="fs-14"><br/></p>' );
+			root.setHtml( editor.config.placeholderContent );
 		}
 	}
 
@@ -81,7 +81,7 @@ function removePlaceholder(ev) {
 		// fill it properly
 		if (CKEDITOR.dtd[ root.getName() ]['p'])
 		{
-			root.setHtml( '<p class="fs-14"><br/></p>' );
+			root.setHtml( editor.config.placeholderContent );
 			// Set caret in position
 			var range = new CKEDITOR.dom.range(editor.document);
 			range.moveToElementEditablePosition(root.getFirst(), true);
