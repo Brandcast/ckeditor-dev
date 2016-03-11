@@ -222,7 +222,11 @@
 		sel.removeAllRanges();
 		sel.addRange( range );
 		try {
-			sel.extend( bm[ 1 ].node, bm[ 1 ].offset );
+			if(bm[ 1 ].node.nodeType === 3 && bm[1].node.length + 1 === bm[1].offset) {
+				sel.collapseToEnd();
+			} else {
+				sel.extend( bm[ 1 ].node, bm[ 1 ].offset );
+			}
 		} catch(e) {
 			console.warn('error moveNativeSelectionToBookmark: ', e);
 		}

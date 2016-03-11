@@ -32,6 +32,12 @@ function addPlaceholder(ev) {
 	if (!root)
 		return;
 
+	// if selection is dead, proceed
+	var sel = editor.getSelection();
+	if(sel && sel.getRanges().length) {
+		return;
+	}
+
 	if (editor.mode == 'wysiwyg')
 	{
 		// If the blur is due to a dialog, don't apply the placeholder
