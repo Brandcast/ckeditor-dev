@@ -1666,8 +1666,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 	function setupElement( el, style ) {
 		var def = style._.definition,
-			attributes = def.attributes,
-			styles = CKEDITOR.style.getStyleText( def );
+			attributes = def.attributes;
 
 		// Assign all defined attributes.
 		if ( attributes ) {
@@ -1676,8 +1675,12 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 
 		// Assign all defined styles.
-		if ( styles )
-			el.setAttribute( 'style', styles );
+		if ( def.styles ) {
+			for (var styleName in def.styles) {
+				var styleValue = def.styles[styleName];
+				el.$.style[styleName] = styleValue;
+			}
+		}
 
 		return el;
 	}

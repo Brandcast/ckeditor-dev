@@ -1928,10 +1928,20 @@
 						}
 					}
 
-					nativeRange.setStart( range.startContainer.$, range.startOffset );
+					if(range.startContainer.$.nodeType === 3 && range.startContainer.$.length + 1 === range.startOffset) {
+						nativeRange.setStart(range.startContainer.$, range.startContainer.$.length);
+					} else {
+						nativeRange.setStart( range.startContainer.$, range.startOffset );
+					}
 
 					try {
-						nativeRange.setEnd( range.endContainer.$, range.endOffset );
+						if(range.endContainer.$.nodeType === 3 && 
+							range.endContainer.$.length + 1 === range.endOffset && 
+							sel.rangeCount) {
+							sel.collapseToEnd();
+						} else {
+							nativeRange.setEnd( range.endContainer.$, range.endOffset );
+						}
 					} catch ( e ) {
 						// There is a bug in Firefox implementation (it would be too easy
 						// otherwise). The new start can't be after the end (W3C says it can).

@@ -25,51 +25,64 @@ function dataIsEmpty( data )
 	}
 }
 
+function rangeIsInside(node, editor) {
+	if(editor.element.$ === node) {
+		return true;
+	}
+	if(!node) {
+		return false;
+	} else {
+		return rangeIsInside(node.parentNode, editor);
+	}
+}
+
 function addPlaceholder(ev) {
-	var editor = ev.editor;
-	var root = (editor.editable ? editor.editable() : (editor.mode == 'wysiwyg' ? editor.document && editor.document.getBody() : editor.textarea  ) );
-	var placeholder = ev.listenerData;
-	if (!root)
-		return;
-
-	// if selection is dead, proceed
-	var sel = editor.getSelection();
-	if(sel && sel.getRanges().length) {
-		return;
-	}
-
-	if (editor.mode == 'wysiwyg')
-	{
-		// If the blur is due to a dialog, don't apply the placeholder
-		if ( CKEDITOR.dialog._.currentTop )
+	setTimeout(function() {
+		var editor = ev.editor;
+		var root = (editor.editable ? editor.editable() : (editor.mode == 'wysiwyg' ? editor.document && editor.document.getBody() : editor.textarea  ) );
+		var placeholder = ev.listenerData;
+		if (!root)
 			return;
 
-		if ( !root )
+		// if selection is dead, proceed
+		var sel = document.getSelection();
+		if(sel && sel.rangeCount && rangeIsInside(sel.getRangeAt(0).startContainer, editor)) {
 			return;
-
-		if ( dataIsEmpty( root.getHtml() ) )
-		{
-			root.addClass( 'show-placeholder' );
-			root.setHtml( editor.config.placeholderContent );
 		}
-	}
 
-	if (editor.mode == 'source')
-	{
-		if ( supportsPlaceholder )
+		if (editor.mode == 'wysiwyg')
 		{
-			if (ev.name=='mode')
+			// If the blur is due to a dialog, don't apply the placeholder
+			if ( CKEDITOR.dialog._.currentTop )
+				return;
+
+			if ( !root )
+				return;
+
+			if ( dataIsEmpty( root.getHtml() ) )
 			{
-				root.setAttribute( 'placeholder', placeholder );
+				root.addClass( 'show-placeholder' );
+				root.setHtml( editor.config.placeholderContent );
 			}
-			return;
 		}
 
-		if ( dataIsEmpty( root.getValue() ) )
+		if (editor.mode == 'source')
 		{
-			root.addClass( 'show-placeholder' );
+			if ( supportsPlaceholder )
+			{
+				if (ev.name=='mode')
+				{
+					root.setAttribute( 'placeholder', placeholder );
+				}
+				return;
+			}
+
+			if ( dataIsEmpty( root.getValue() ) )
+			{
+				root.addClass( 'show-placeholder' );
+			}
 		}
-	}
+	});
 }
 
 function removePlaceholder(ev) {
