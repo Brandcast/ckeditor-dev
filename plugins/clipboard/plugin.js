@@ -1256,15 +1256,33 @@
 	};
 
 	function styleNode(node, style) {
-		if(style.styles) {
-			for(var key in style.styles) {
-				var value = style.styles[key];
-				node.style[key] = value;
+
+		if(node.tagName.toLowerCase() === style.element) {
+			if(style.styles) {
+				for(var key in style.styles) {
+					var value = style.styles[key];
+					node.style[key] = value;
+				}
+			}
+			if(style.attributes && style.attributes.class) {
+				node.classList.add(style.attributes.class);
+			}
+		} else {
+			var nodes = node.querySelectorAll(style.element);
+			for(var i = 0; i < nodes.length; i++) {
+				var child = nodes[i];
+				if(style.styles) {
+					for(var key in style.styles) {
+						var value = style.styles[key];
+						child.style[key] = value;
+					}
+				}
+				if(style.attributes && style.attributes.class) {
+					child.classList.add(style.attributes.class);
+				}
 			}
 		}
-		if(style.attributes && style.attributes.class) {
-			node.classList.add(style.attributes.class);
-		}
+
 	}
 
 	function styleContent( editor, data, styles ) {
@@ -1272,9 +1290,21 @@
 		var nodes = document.body.children;
 		for(var i = 0; i < nodes.length; i++) {
 			var node = nodes[i];
+
+			// wrap a tags in spans
+			var aTags = node.querySelectorAll('a');
+			for(var y = 0; y < aTags.length; y++) {
+				if(aTags[y].parentNode.tagName !== 'SPAN') {
+					$(aTags[y]).wrap('<span></span>');
+				}
+			}
+
 			var tagName = node.tagName.toLowerCase();
 			if(styles[tagName]) {
-				styleNode(node, styles[tagName]);
+				var tagStyles = styles[tagName];
+				for(var x = 0; x < tagStyles.length; x++) {
+					styleNode(node, tagStyles[x]);
+				}
 			}
 		}
 		return document.body.innerHTML;
