@@ -746,7 +746,9 @@
 				// Error prune in IE7. (#9034, #9110)
 				try {
 					range.moveToPoint( x, y );
-				} catch ( e ) {}
+				} catch ( e ) {
+					console.warn('error moveRangeToPoint: ', e);
+				}
 			}
 
 			function removeListeners() {

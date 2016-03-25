@@ -34,6 +34,7 @@ var CKBUILDER_CONFIG = {
     plugins: {
     	basicstyles: 1,
     	blockquote: 1,
+        bidi: 1,
     	dialogui: 1,
     	dialog: 1,
     	clipboard: 1,
