@@ -1269,6 +1269,10 @@
 			}
 		} else {
 			var nodes = node.querySelectorAll(style.element);
+			if(!nodes.length) {
+				$(node).wrapInner('<'+style.element+'></'+style.element+'>');
+				nodes = node.querySelectorAll(style.element);
+			}
 			for(var i = 0; i < nodes.length; i++) {
 				var child = nodes[i];
 				if(style.styles) {
