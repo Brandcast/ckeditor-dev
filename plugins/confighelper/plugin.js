@@ -21,7 +21,7 @@ function dataIsEmpty( data )
 	if(isPlainText) {
 		return !value;
 	} else {
-		return !Array.from($(value).map(function() { return this.textContent; })).join('');
+		return !$(value).toArray().map(function(node) { return node.textContent; }).join('');
 	}
 }
 
